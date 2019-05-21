@@ -1,7 +1,7 @@
 <div class="layout__wrapper">
   <div class="layout__inner">
     <header class="layout__header">
-      <menu [tabs]="MenuTabs" (onAction)="handleMenuAction($event)"></menu>
+      <menu menu-block [tabs]="MenuTabs" (onAction)="handleMenuAction($event)"></menu>
     </header>
     <router-outlet class="layout__outlet"></router-outlet>
     <footer></footer>

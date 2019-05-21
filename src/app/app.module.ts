@@ -3,19 +3,23 @@ import { NgModule } from '@angular/core';
 
 // modules
 import { ModalsModule } from 'core-library/modals/modals.module';
-import { CabinetModule } from './cabinet/cabinet.module';
 
 // components
 import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+
+import { appRoutes } from './app.routes';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     ModalsModule,
-    CabinetModule.forRoot()
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [],
   bootstrap: [AppComponent]

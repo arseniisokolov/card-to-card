@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-history-filter',
+  selector: 'history-filter',
   templateUrl: './history-filter.component.html',
-  styleUrls: ['./history-filter.component.scss']
+  styleUrls: ['./styles/history-filter.component.scss']
 })
 export class HistoryFilterComponent implements OnInit {
 
