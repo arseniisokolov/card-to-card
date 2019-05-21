@@ -51,15 +51,10 @@
     "no-use-before-declare": true,
     "no-var-requires": false,
     "object-literal-key-quotes": [
-      true,
-      "as-needed"
+      false
     ],
     "object-literal-sort-keys": false,
     "ordered-imports": false,
-    "quotemark": [
-      true,
-      "single"
-    ],
     "trailing-comma": false,
     "no-output-on-prefix": true,
     "use-input-property-decorator": true,
@@ -70,6 +65,7 @@
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
-    "directive-class-suffix": true
+    "directive-class-suffix": true,
+    "no-bitwise": false,
   }
 }
