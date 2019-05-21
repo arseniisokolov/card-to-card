@@ -1,9 +1,9 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { FormViewModel } from 'core-library/core/view-models/form.view-model';
-import { ICardRequisites } from '../../app-data/card-transfer.interface';
+import { CardModel, ICardModel } from 'core-library/core/models/card.model';
 
 
-export class CardFormViewModel extends FormViewModel<ICardRequisites> {
+export class CardFormViewModel extends FormViewModel<CardModel> {
 
     /** Краткая форма карты */
     public IsReducedMode: boolean;
@@ -14,11 +14,40 @@ export class CardFormViewModel extends FormViewModel<ICardRequisites> {
         super.initialize();
     }
 
-    public toData(): ICardRequisites {
-        let res: ICardRequisites;
+
+
+    public fromModel(data: CardModel) {
+        const expNumber = data.getExplodedNumber();
+        this.Form.value.NumberGroup1 = expNumber[0];
+        this.Form.value.NumberGroup2 = expNumber[1];
+        this.Form.value.NumberGroup3 = expNumber[2];
+        this.Form.value.NumberGroup4 = expNumber[3];
+        if (!this.IsReducedMode) {
+            this.Form.value.ExpireMonth = data.ExpireDate.getMonth() + 1;
+            this.Form.value.ExpireYear = data.ExpireDate.getFullYear();
+            this.Form.value.OwnerEmbossName = data.OwnerEmbossName;
+        }
+    }
+
+    public toModel(): CardModel {
+        let res: CardModel;
+        res.Number = CardModel.implodeNumber([this.Form.value.NumberGroup1, this.Form.value.NumberGroup2, this.Form.value.NumberGroup3, this.Form.value.NumberGroup4]);
+        if (!this.IsReducedMode) {
+            res.OwnerEmbossName = this.Form.value.OwnerEmbossName;
+            res.ExpireDate = CardModel.calculateExpire(this.Form.value.ExpireMonth, this.Form.value.ExpireYear);
+        }
         return res;
     }
 
+    public fromData(data: ICardModel) {
+        if (!data)
+            return;
+        this.fromModel(new CardModel(data));
+    }
+
+    public toData(): ICardModel {
+        return this.toModel().toData();
+    }
 
     protected getControls(): { [key: string]: FormControl } {
         const formFields = {
@@ -44,6 +73,8 @@ export class CardFormViewModel extends FormViewModel<ICardRequisites> {
 /** Настройки для формы карты */
 export interface ICardFormConfig {
 
+    /** Заголовок формы */
+    title?: string;
     /** Краткая форма */
     isReduced?: boolean;
 

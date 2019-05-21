@@ -1,7 +1,7 @@
+import { FormControl, Validators } from '@angular/forms';
 import { FormViewModel } from 'core-library/core/view-models/form.view-model';
 import { ICardTransfer } from '../../app-data/card-transfer.interface';
 import { CardFormViewModel } from './card-form.view-model';
-import { FormControl, Validators } from '@angular/forms';
 
 
 export class TransferFormViewModel extends FormViewModel<ICardTransfer>{
@@ -13,14 +13,24 @@ export class TransferFormViewModel extends FormViewModel<ICardTransfer>{
     public initialize() {
         this.CardFrom = new CardFormViewModel();
         this.CardTo = new CardFormViewModel();
-        this.CardFrom.initialize({});
-        this.CardTo.initialize({ isReduced: true });
+        this.CardFrom.initialize({ title: 'Карта плательщика' });
+        this.CardTo.initialize({ title: 'Карта получателя', isReduced: true });
         super.initialize();
     }
 
+    public fromModel(data: ICardTransfer) {
+        super.fromModel(data);
+        this.Form.value.Amount = data.amount;
+        this.CardFrom.fromData(data.cardFrom);
+        this.CardTo.fromData(data.cardTo);
+    }
 
-    public toData(): ICardTransfer {
+    public toModel(): ICardTransfer {
         let res: ICardTransfer;
+        res.amount = this.Form.value.Amount;
+        res.cardFrom = this.CardFrom.toData();
+        res.cardTo = this.CardTo.toData();
+        res.docDate = new Date().toString();
         return res;
     }
 
