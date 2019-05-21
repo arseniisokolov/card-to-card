@@ -1,3 +1,26 @@
-<p>
-  create-transfer-form works!
-</p>
+<div class="transfer-form__inner">
+  <div class="transfer-form__cards">
+    <card-form
+      class="transfer-form__card transfer-form__card_full"
+      [card]="cardFrom" (onChanged)="onChangedFrom($event)">
+    </card-form>
+    <i class="transfer-form__figure fas fa-fighter-jet"></i>
+    <card-form
+      class="transfer-form__card transfer-form__card_reduced"
+      [card]="cardTo" (onChanged)="onChangedTo($event)">
+    </card-form>
+  </div>
+  <form class="transfer-form__controls"
+    [formGroup]="transferForm" novalidate
+    (ngSubmit)="submit()">
+    <div class="sum-group">
+      <label class="sum-group__caption" for="name">Введите
+        сумму</label>
+      <input class="sum-group__input" name="sum"
+        formControlName="sum" [(ngModel)]="sum" />
+    </div>
+    <button class="transfer-form__action"
+      [disabled]="transferForm.invalid||!cardFrom.valid||!cardTo.valid"
+      type="submit">Перевести</button>
+  </form>
+</div>

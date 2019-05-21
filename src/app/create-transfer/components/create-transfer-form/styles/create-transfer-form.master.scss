@@ -1,0 +1,90 @@
+.create {
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        height: 100%;
+        width: 100%;
+    }
+    &__cards {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: auto;
+    }
+    &__card {
+        width: 40%;
+        height: auto;
+    }
+    &__controls {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        width: 100%;
+        height: auto;
+    }
+    &__sum {
+        height: 2.5em;
+        width: 20rem;
+        margin-top: 0.5rem;
+        padding: .5em;
+        border: 2px solid #9c9c9c;
+        border-radius: 0.8rem;
+        outline: unset;
+        font: bold 1.7rem/100% 'Nunito', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        color: #353535;
+        transition: .5s;
+    }
+    &__sum-caption {
+        display: block;
+        font: 400 1.2rem/100% 'Poppins', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        color: #2dbdb6;
+    }
+    &__action {
+        width: 8em;
+        height: 4.5rem;
+        margin-left: 3rem;
+        font: bold 2rem/100% 'Poppins', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-transform: uppercase;
+        text-align: center;
+        color: white;
+        background: #2dbdb6;
+        border: unset;
+        border-radius: 0.8rem;
+        cursor: pointer;
+        transition: .5s
+    }
+    &__figure {
+        font: 100 8rem/100% 'Poppins', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        color: #9c9c9c;
+        margin: 0 2rem;
+    }
+}
+
+.create {
+    &__sum.ng-touched.ng-invalid {
+        border-color: #f33a35;
+    }
+    &__sum.ng-touched.ng-valid {
+        border-color: #2dbdb6
+    }
+    &__sum:focus {
+        border-color: #353535;
+    }
+    &__action:not(:disabled):hover {
+        transform: scale(1.05);
+    }
+    &__action:active {
+        background: #209B95;
+    }
+    &__action:disabled {
+        opacity: .5;
+        cursor: default;
+    }
+}

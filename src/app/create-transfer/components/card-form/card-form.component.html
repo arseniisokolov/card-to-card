@@ -1,3 +1,61 @@
-<p>
-  card-form works!
-</p>
+<div class="card-form__inner">
+  <div class="card-form__title">{{card.title}}</div>
+  <form class="card-form__form" [formGroup]="cardForm"
+    novalidate>
+    <div class="card-form__field-group card-form__field-group_number">
+      <label class="card-form__caption"
+        for="number">Номер</label>
+      <div class="card-form__number-group">
+        <input class="card-form__field" name="numberGroup1"
+          formControlName="numberGroup1" placeholder="0000"
+          maxlength="4" [(ngModel)]="card.numberParts[0]" />
+        <input class="card-form__field" name="numberGroup2"
+          formControlName="numberGroup2" placeholder="0000"
+          maxlength="4" [(ngModel)]="card.numberParts[1]" />
+        <input class="card-form__field" name="numberGroup3"
+          formControlName="numberGroup3" placeholder="0000"
+          maxlength="4" [(ngModel)]="card.numberParts[2]" />
+        <input class="card-form__field" name="numberGroup4"
+          formControlName="numberGroup4" placeholder="0000"
+          maxlength="4" [(ngModel)]="card.numberParts[3]" />
+      </div>
+    </div>
+    <div class="card-form__info" *ngIf="!card.reduced">
+      <div class="card-form__field-group card-form__field-group_name">
+        <label class="card-form__caption" for="name">ФИО
+          держателя</label>
+        <input class="card-form__field" name="name"
+          formControlName="name" [(ngModel)]="card.name"
+          placeholder="PETR STEPANOV" />
+      </div>
+      <div class="card-form__field-group card-form__field-group_date">
+        <label class="card-form__caption" for="month">Активна
+          до</label>
+        <select class="card-form__field" size="1" name="month"
+          formControlName="month" [(ngModel)]="card.month">
+          <option disabled>Выберите месяц</option>
+          <option value="01">01</option>
+          <option value="02">02</option>
+          <option value="03">03</option>
+          <option value="04">04</option>
+          <option value="05">05</option>
+          <option value="06">06</option>
+          <option value="07">07</option>
+          <option value="08">08</option>
+          <option value="09">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+      <div class="card-form__field-group card-form__field-group_date">
+        <select class="card-form__field" size="1" name="year"
+          formControlName="year" [(ngModel)]="card.year">
+          <option disabled>Выберите год</option>
+          <option *ngFor="let validYear of validYears"
+            value="{{validYear}}">{{validYear}}</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
