@@ -40,7 +40,8 @@ export class CabinetLayoutComponent implements OnInit {
 
   /** Распознает активный таб при запуске приложения */
   private checkInitTab() {
-    this._activatedRoute.firstChild.data.pipe(first())
+    const route = this._activatedRoute.firstChild || this._activatedRoute;
+    route.data.pipe(first())
       .subscribe(data => {
         if (!data || !data.action)
           return;

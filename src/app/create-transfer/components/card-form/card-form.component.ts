@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { CardFormViewModel } from '../../view-models/card-form.view-model';
 
 @Component({
   selector: 'card-form',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CardFormComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  public model: CardFormViewModel;
 
   ngOnInit() {
   }

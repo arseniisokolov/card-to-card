@@ -12,3 +12,4 @@ export interface ICardTransfer {
     /** Дата документа о переводе */
     docDate?: string;
 
+}

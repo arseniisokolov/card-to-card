@@ -1,38 +1,38 @@
-<div class="card-form__inner">
-  <div class="card-form__title">{{card.title}}</div>
-  <form class="card-form__form" [formGroup]="cardForm"
-    novalidate>
+<div *ngIf="model" class="card-form__inner">
+  <div class="card-form__title">{{model.Title}}</div>
+  <form class="card-form__form" [formGroup]="model.Form" novalidate>
     <div class="card-form__field-group card-form__field-group_number">
-      <label class="card-form__caption"
-        for="number">Номер</label>
-      <div class="card-form__number-group">
-        <input class="card-form__field" name="numberGroup1"
-          formControlName="numberGroup1" placeholder="0000"
-          maxlength="4" [(ngModel)]="card.numberParts[0]" />
-        <input class="card-form__field" name="numberGroup2"
-          formControlName="numberGroup2" placeholder="0000"
-          maxlength="4" [(ngModel)]="card.numberParts[1]" />
-        <input class="card-form__field" name="numberGroup3"
-          formControlName="numberGroup3" placeholder="0000"
-          maxlength="4" [(ngModel)]="card.numberParts[2]" />
-        <input class="card-form__field" name="numberGroup4"
-          formControlName="numberGroup4" placeholder="0000"
-          maxlength="4" [(ngModel)]="card.numberParts[3]" />
+      <label class="card-form__caption" for="numberGroups">Номер</label>
+      <div class="card-form__number-group" name="numberGroups">
+        <input class="card-form__field"
+          formControlName="NumberGroup1"
+          placeholder="0000" maxlength="4" />
+        <input class="card-form__field"
+          formControlName="NumberGroup2"
+          placeholder="0000" maxlength="4" />
+        <input class="card-form__field"
+          formControlName="NumberGroup3"
+          placeholder="0000" maxlength="4" />
+        <input class="card-form__field"
+          formControlName="NumberGroup4"
+          placeholder="0000" maxlength="4" />
       </div>
     </div>
-    <div class="card-form__info" *ngIf="!card.reduced">
+    <div *ngIf="!model.IsReducedMode" class="card-form__info">
       <div class="card-form__field-group card-form__field-group_name">
-        <label class="card-form__caption" for="name">ФИО
-          держателя</label>
-        <input class="card-form__field" name="name"
-          formControlName="name" [(ngModel)]="card.name"
+        <label class="card-form__caption" for="ownerEmbossName">
+          ФИО держателя
+        </label>
+        <input class="card-form__field"
+          name="ownerEmbossName"
+          formControlName="OwnerEmbossName"
           placeholder="PETR STEPANOV" />
       </div>
       <div class="card-form__field-group card-form__field-group_date">
-        <label class="card-form__caption" for="month">Активна
-          до</label>
-        <select class="card-form__field" size="1" name="month"
-          formControlName="month" [(ngModel)]="card.month">
+        <label class="card-form__caption" for="expireMonth">
+          Активна до
+        </label>
+        <select class="card-form__field" size="1" name="expireMonth" formControlName="ExpireMonth">
           <option disabled>Выберите месяц</option>
           <option value="01">01</option>
           <option value="02">02</option>
@@ -49,11 +49,12 @@
         </select>
       </div>
       <div class="card-form__field-group card-form__field-group_date">
-        <select class="card-form__field" size="1" name="year"
-          formControlName="year" [(ngModel)]="card.year">
+        <select class="card-form__field" size="1"
+          formControlName="ExpireYear">
           <option disabled>Выберите год</option>
-          <option *ngFor="let validYear of validYears"
-            value="{{validYear}}">{{validYear}}</option>
+          <option *ngFor="let item of model.getValidYears()" value="{{item}}">
+            {{item}}
+          </option>
         </select>
       </div>
     </div>

@@ -3,7 +3,9 @@
     <header class="layout__header">
       <menu menu-block [tabs]="MenuTabs" (onAction)="handleMenuAction($event)"></menu>
     </header>
-    <router-outlet class="layout__outlet"></router-outlet>
+    <div class="layout__outlet">
+      <router-outlet ></router-outlet>
+    </div>
     <footer></footer>
   </div>
 </div>

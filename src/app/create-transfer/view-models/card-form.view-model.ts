@@ -3,17 +3,23 @@ import { FormViewModel } from 'core-library/core/view-models/form.view-model';
 import { CardModel, ICardModel } from 'core-library/core/models/card.model';
 
 
+const Constants = {
+    /** Максимальный возможный срок действия карты, лет (с текущего года) */
+    maxDuration: 21,
+}
+
 export class CardFormViewModel extends FormViewModel<CardModel> {
 
     /** Краткая форма карты */
     public IsReducedMode: boolean;
+    public Title: string;
 
 
     public initialize(config: ICardFormConfig) {
         this.IsReducedMode = config.isReduced;
+        this.Title = config.title;
         super.initialize();
     }
-
 
 
     public fromModel(data: CardModel) {
@@ -66,6 +72,18 @@ export class CardFormViewModel extends FormViewModel<CardModel> {
                 }
             };
         return formFields;
+    }
+
+    public getValidYears(): number[] {
+        let validYears: number[] = [];
+        let currentYear: number = new Date().getFullYear();
+        let lastYear: number = currentYear + Constants.maxDuration;
+        currentYear = Number(String(currentYear).slice(2));
+        lastYear = Number(String(lastYear).slice(2));
+        for (let resItem = currentYear; resItem <= lastYear; resItem++) {
+            validYears.push(resItem)
+        }
+        return validYears;
     }
 
 }

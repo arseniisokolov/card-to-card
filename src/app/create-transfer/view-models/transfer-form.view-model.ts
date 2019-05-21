@@ -9,6 +9,9 @@ export class TransferFormViewModel extends FormViewModel<ICardTransfer>{
     public CardFrom: CardFormViewModel;
     public CardTo: CardFormViewModel;
 
+    public get IsValid(): boolean {
+        return this.Form.valid && this.CardFrom.Form.valid && this.CardTo.Form.valid;
+    }
 
     public initialize() {
         this.CardFrom = new CardFormViewModel();
