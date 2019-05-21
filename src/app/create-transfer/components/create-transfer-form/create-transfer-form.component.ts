@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TransferFormViewModel } from '../../view-models/transfer-form.view-model';
+import { TransferService } from '../../data/transfer.service';
+import { TosterGlobalService } from 'core-library/modals/data/toster/toster.global.service';
+import { TosterTypes } from 'core-library/modals/data/toster/toster-types.enum';
 
 @Component({
   selector: 'create-transfer-form',
@@ -10,14 +13,21 @@ export class CreateTransferFormComponent implements OnInit {
 
   public Model: TransferFormViewModel;
 
-  constructor() { }
+  constructor(
+    private _transferService: TransferService,
+    private _tosterService: TosterGlobalService
+  ) { }
 
   public ngOnInit() {
     this.initialize();
   }
 
   public submitForm() {
-    console.log(this.Model);
+    this._transferService.send(this.Model.toModel()).subscribe(() => {
+      this._tosterService.showModal({ message: `Перевод на сумму ${this.Model.toModel().amount} отправлен.`, type: TosterTypes.Success })
+    }, error => {
+      this._tosterService.showModal({ message: error, type: TosterTypes.Error })
+    });
   }
 
   private initialize() {

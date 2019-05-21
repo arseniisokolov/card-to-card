@@ -10,6 +10,10 @@ export const cabinetRoutes: Routes = [
         component: CabinetLayoutComponent,
         children: [
             {
+                path: '',
+                redirectTo: 'create-transfer'
+            },
+            {
                 path: 'create-transfer',
                 component: CreateTransferTabComponent,
                 data: { action: AppActionTypes.toCreateTransfer }

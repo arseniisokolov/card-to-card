@@ -6,12 +6,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CreateTransferFormComponent } from './components/create-transfer-form/create-transfer-form.component';
 import { CardFormComponent } from './components/card-form/card-form.component';
 
+// services
+import { TransferService } from './data/transfer.service';
+
 @NgModule({
   declarations: [
     CreateTransferFormComponent,
     CardFormComponent
   ],
-  exports: [    
+  exports: [
     CreateTransferFormComponent,
   ],
   imports: [
@@ -19,12 +22,14 @@ import { CardFormComponent } from './components/card-form/card-form.component';
     ReactiveFormsModule
   ]
 })
-export class CreateTransferModule {
+export class TransferModule {
 
   public static forRoot(): ModuleWithProviders {
     return {
-      ngModule: CreateTransferModule,
-      providers: []
+      ngModule: TransferModule,
+      providers: [
+        TransferService
+      ]
     };
   }
 

@@ -1,23 +1,12 @@
-.header {
+.create-transfer {
+
+    width: 100%;
 
     &__title {
-        font: 400 3rem/100% 'Poppins', sans-serif;
+        font: 400 1.8rem/100% 'Poppins', sans-serif;
         -webkit-font-smoothing: antialiased;
         color: #353535;
-        margin-bottom: 5rem;
-    }
-
-    &__logo {
-        float: left;
-        margin-right: 1.5rem;
-        font-size: 3rem;
-        color: #2dbdb6
-    }
-
-    &__menu {
-        display: flex;
-        width: 100%;
-        height: auto;
+        margin-bottom: 2rem;
     }
 
 }

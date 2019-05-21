@@ -4,10 +4,11 @@ import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { RouterModule } from '@angular/router';
 
 //modules
-import { CreateTransferModule } from '../create-transfer/create-transfer.module';
+import { TransferModule } from '../create-transfer/transfer.module';
 import { HistoryModule } from '../history/history.module';
 
 //components
+import { AuthorLogoComponent } from 'core-library/core/components/author-logo/author-logo.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -25,6 +26,7 @@ import { cabinetRoutes } from './cabinet.routes';
     MenuComponent,
     CreateTransferTabComponent,
     HistoryTabComponent,
+    AuthorLogoComponent,
   ],
   exports: [
     CabinetLayoutComponent,
@@ -32,7 +34,7 @@ import { cabinetRoutes } from './cabinet.routes';
   imports: [
     CommonModule,
     RouterModule.forChild(cabinetRoutes),
-    CreateTransferModule.forRoot(),
+    TransferModule.forRoot(),
     HistoryModule.forRoot(),
   ]
 })

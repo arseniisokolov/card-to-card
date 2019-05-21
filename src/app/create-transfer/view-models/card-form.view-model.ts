@@ -36,7 +36,7 @@ export class CardFormViewModel extends FormViewModel<CardModel> {
     }
 
     public toModel(): CardModel {
-        let res: CardModel;
+        const res: CardModel = new CardModel();
         res.Number = CardModel.implodeNumber([this.Form.value.NumberGroup1, this.Form.value.NumberGroup2, this.Form.value.NumberGroup3, this.Form.value.NumberGroup4]);
         if (!this.IsReducedMode) {
             res.OwnerEmbossName = this.Form.value.OwnerEmbossName;

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./styles/footer.component.scss']
+  styleUrls: ['./styles/footer.master.scss']
 })
 export class FooterComponent implements OnInit {
 

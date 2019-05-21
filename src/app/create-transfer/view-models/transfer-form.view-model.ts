@@ -1,5 +1,6 @@
 import { FormControl, Validators } from '@angular/forms';
 import { FormViewModel } from 'core-library/core/view-models/form.view-model';
+import { Helpers } from 'core-library/core/helpers';
 import { ICardTransfer } from '../../app-data/card-transfer.interface';
 import { CardFormViewModel } from './card-form.view-model';
 
@@ -29,12 +30,13 @@ export class TransferFormViewModel extends FormViewModel<ICardTransfer>{
     }
 
     public toModel(): ICardTransfer {
-        let res: ICardTransfer;
-        res.amount = this.Form.value.Amount;
-        res.cardFrom = this.CardFrom.toData();
-        res.cardTo = this.CardTo.toData();
-        res.docDate = new Date().toString();
-        return res;
+        return {
+            id: Helpers.getGuid(),
+            amount: this.Form.value.Amount,
+            cardFrom: this.CardFrom.toData(),
+            cardTo: this.CardTo.toData(),
+            docDate: new Date().toString(),
+        };
     }
 
     protected getControls(): { [key: string]: FormControl } {
