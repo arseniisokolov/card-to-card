@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HistoryService } from '../../../history/data/history.service';
 import { first, finalize } from 'rxjs/operators';
 import { ICardTransfer } from '../../../app-data/card-transfer.interface';
@@ -16,6 +16,7 @@ export class CreateTransferTabComponent implements OnInit {
   public Loading: boolean;
 
   constructor(
+    private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _historyService: HistoryService
   ) { }
@@ -34,6 +35,10 @@ export class CreateTransferTabComponent implements OnInit {
             transfer => this.PresetTransfer = transfer
           )
       })
+  }
+
+  public directToHistory() {
+    this._router.navigate(['cabinet/history']);
   }
 
 }

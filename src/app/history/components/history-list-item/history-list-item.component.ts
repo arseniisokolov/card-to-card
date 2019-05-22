@@ -5,7 +5,7 @@ import { HistoryListItemViewModel } from '../../view-models/history-list-item.vi
 @Component({
   selector: 'history-list-item',
   templateUrl: './history-list-item.component.html',
-  styleUrls: ['./styles/history-list-item.component.scss']
+  styleUrls: ['../history-list/styles/history-list.component.scss']
 })
 export class HistoryListItemComponent {
 

@@ -13,7 +13,7 @@ export class HistoryListViewModel {
     public initialize(transfers: ICardTransfer[]) {
         if (!transfers)
             return;
-        this.Items = transfers.map(i => new HistoryListItemViewModel(i));
+        this.Items = transfers.map(i => new HistoryListItemViewModel(i)).reverse();
     }
 
     public hideItem(id: string) {

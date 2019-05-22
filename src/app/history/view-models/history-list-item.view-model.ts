@@ -16,7 +16,7 @@ export class HistoryListItemViewModel {
         this.NumberFrom = data.cardFrom.number;
         this.NumberTo = data.cardTo.number;
         this.Amount = data.amount;
-        this.FormattedDate = Helpers.getFormattedDate(data.docDate);
+        this.FormattedDate = `${Helpers.getFormattedTime(data.docDate)}, ${Helpers.getFormattedDate(data.docDate)}`;
     }
 
 }
