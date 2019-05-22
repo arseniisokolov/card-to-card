@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Helpers } from 'core-library/core/helpers';
+import { HistoryListItemViewModel } from '../../view-models/history-list-item.view-model';
 
 @Component({
   selector: 'history-list-item',
   templateUrl: './history-list-item.component.html',
   styleUrls: ['./styles/history-list-item.component.scss']
 })
-export class HistoryListItemComponent implements OnInit {
+export class HistoryListItemComponent {
 
-  constructor() { }
+  @Input()
+  public model: HistoryListItemViewModel;
 
-  ngOnInit() {
+  @Output()
+  public onRepeat: EventEmitter<string> = new EventEmitter<string>();
+  @Output()
+  public onDelete: EventEmitter<string> = new EventEmitter<string>();
+
+  public toRepeatTransfer(event: Event) {
+    Helpers.stopPropagation(event);
+    this.onRepeat.emit(this.model.Id);
+  }
+
+  public toDeleteTransfer(event: Event) {
+    Helpers.stopPropagation(event);
+    this.onDelete.emit(this.model.Id);
   }
 
 }

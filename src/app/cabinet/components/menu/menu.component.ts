@@ -17,8 +17,6 @@ export class MenuComponent {
 
   public selectTab(tab: MenuListItemViewModel, event: Event) {
     Helpers.stopPropagation(event);
-    this.tabs.forEach(i => i.setActive(false));
-    tab.setActive(true);
     this.onAction.emit(tab.Action);
   }
 

@@ -4,29 +4,19 @@
     <div class="card-form__field-group card-form__field-group_number">
       <label class="card-form__caption" for="numberGroups">Номер</label>
       <div class="card-form__number-group" name="numberGroups">
-        <input class="card-form__field"
-          formControlName="NumberGroup1"
-          placeholder="0000" maxlength="4" />
-        <input class="card-form__field"
-          formControlName="NumberGroup2"
-          placeholder="0000" maxlength="4" />
-        <input class="card-form__field"
-          formControlName="NumberGroup3"
-          placeholder="0000" maxlength="4" />
-        <input class="card-form__field"
-          formControlName="NumberGroup4"
-          placeholder="0000" maxlength="4" />
+        <input class="card-form__field" formControlName="NumberGroup1" placeholder="0000" maxlength="4" autocomplete="false"/>
+        <input class="card-form__field" formControlName="NumberGroup2" placeholder="0000" maxlength="4" autocomplete="false"/>
+        <input class="card-form__field" formControlName="NumberGroup3" placeholder="0000" maxlength="4" autocomplete="false"/>
+        <input class="card-form__field" formControlName="NumberGroup4" placeholder="0000" maxlength="4" autocomplete="false"/>
       </div>
     </div>
+
     <div *ngIf="!model.IsReducedMode" class="card-form__info">
       <div class="card-form__field-group card-form__field-group_name">
         <label class="card-form__caption" for="ownerEmbossName">
           ФИО держателя
         </label>
-        <input class="card-form__field"
-          name="ownerEmbossName"
-          formControlName="OwnerEmbossName"
-          placeholder="PETR STEPANOV" />
+        <input class="card-form__field" name="ownerEmbossName" formControlName="OwnerEmbossName" placeholder="PETR STEPANOV" autocomplete="false"/>
       </div>
       <div class="card-form__field-group card-form__field-group_date">
         <label class="card-form__caption" for="expireMonth">

@@ -23,15 +23,19 @@ export class CardFormViewModel extends FormViewModel<CardModel> {
 
 
     public fromModel(data: CardModel) {
+        if (!data)
+            return;
+        super.fromModel(data);
         const expNumber = data.getExplodedNumber();
-        this.Form.value.NumberGroup1 = expNumber[0];
-        this.Form.value.NumberGroup2 = expNumber[1];
-        this.Form.value.NumberGroup3 = expNumber[2];
-        this.Form.value.NumberGroup4 = expNumber[3];
+        this.Form.controls.NumberGroup1.setValue(expNumber[0]);
+        this.Form.controls.NumberGroup2.setValue(expNumber[1]);
+        this.Form.controls.NumberGroup3.setValue(expNumber[2]);
+        this.Form.controls.NumberGroup4.setValue(expNumber[3]);
         if (!this.IsReducedMode) {
-            this.Form.value.ExpireMonth = data.ExpireDate.getMonth() + 1;
-            this.Form.value.ExpireYear = data.ExpireDate.getFullYear();
-            this.Form.value.OwnerEmbossName = data.OwnerEmbossName;
+            const expDate = data.getExpired();
+            this.Form.controls.ExpireMonth.setValue(expDate.month);
+            this.Form.controls.ExpireYear.setValue(expDate.year);
+            this.Form.controls.OwnerEmbossName.setValue(data.OwnerEmbossName);
         }
     }
 
@@ -39,7 +43,7 @@ export class CardFormViewModel extends FormViewModel<CardModel> {
         const res: CardModel = new CardModel();
         res.Number = CardModel.implodeNumber([this.Form.value.NumberGroup1, this.Form.value.NumberGroup2, this.Form.value.NumberGroup3, this.Form.value.NumberGroup4]);
         if (!this.IsReducedMode) {
-            res.OwnerEmbossName = this.Form.value.OwnerEmbossName;
+            res.OwnerEmbossName = this.Form.value.OwnerEmbossName.toUpperCase();
             res.ExpireDate = CardModel.calculateExpire(this.Form.value.ExpireMonth, this.Form.value.ExpireYear);
         }
         return res;
@@ -66,9 +70,9 @@ export class CardFormViewModel extends FormViewModel<CardModel> {
             return {
                 ...formFields,
                 ...{
-                    "OwnerEmbossName": new FormControl("", Validators.required),
-                    "ExpireMonth": new FormControl("", Validators.required),
-                    "ExpireYear": new FormControl("", Validators.required)
+                    "OwnerEmbossName": new FormControl('', [Validators.required]),
+                    "ExpireMonth": new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"),]),
+                    "ExpireYear": new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"),])
                 }
             };
         return formFields;

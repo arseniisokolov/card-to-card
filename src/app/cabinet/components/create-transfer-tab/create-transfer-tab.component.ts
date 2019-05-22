@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HistoryService } from '../../../history/data/history.service';
+import { first, finalize } from 'rxjs/operators';
+import { ICardTransfer } from '../../../app-data/card-transfer.interface';
+import { pipe } from 'rxjs';
 
 @Component({
   selector: 'create-transfer-tab',
@@ -7,9 +12,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateTransferTabComponent implements OnInit {
 
-  constructor() { }
+  public PresetTransfer: ICardTransfer;
+  public Loading: boolean;
 
-  ngOnInit() {
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _historyService: HistoryService
+  ) { }
+
+  public ngOnInit() {
+    this.Loading = true;
+    this._activatedRoute.queryParams.pipe(first())
+      .subscribe(params => {
+        if (!params.id) {
+          this.Loading = false;
+          return;
+        }
+        this._historyService.getTransferById(params.id)
+          .pipe(finalize(() => this.Loading = false))
+          .subscribe(
+            transfer => this.PresetTransfer = transfer
+          )
+      })
   }
 
 }

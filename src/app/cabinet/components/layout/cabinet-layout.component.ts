@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
+import { Subject } from 'rxjs';
 
 import { MenuListItemViewModel } from 'core-library/core/view-models/list-item.view-model';
 import { AppActionTypes } from '../../../app-data/app-action-types.enum';
+import { takeUntil, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'cabinet-layout',
   templateUrl: './cabinet-layout.component.html',
   styleUrls: ['./styles/cabinet-layout.component.scss']
 })
-export class CabinetLayoutComponent implements OnInit {
+export class CabinetLayoutComponent implements OnInit, OnDestroy {
 
   /** TO DO: каунтеры, скрывать историю если нет платежей */
   public MenuTabs: MenuListItemViewModel[] = [
@@ -18,13 +19,20 @@ export class CabinetLayoutComponent implements OnInit {
     new MenuListItemViewModel(AppActionTypes.toHistory, "История переводов"),
   ];
 
+  private _unsubscriber = new Subject<void>();
+
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute
   ) { }
 
   public ngOnInit() {
-    this.checkInitTab();
+    this.checkRoutingChanges();
+  }
+
+  public ngOnDestroy() {
+    this._unsubscriber.next();
+    this._unsubscriber.complete();
   }
 
   public handleMenuAction(name: AppActionTypes): void {
@@ -38,17 +46,25 @@ export class CabinetLayoutComponent implements OnInit {
     }
   }
 
-  /** Распознает активный таб при запуске приложения */
-  private checkInitTab() {
-    const route = this._activatedRoute.firstChild || this._activatedRoute;
-    route.data.pipe(first())
-      .subscribe(data => {
-        if (!data || !data.action)
-          return;
-        const tab = this.MenuTabs.find(i => i.Action == data.action);
-        if (tab)
-          tab.setActive(true);
+  /** Распознает активный таб (если его активировали через роутинг) */
+  private checkRoutingChanges() {
+    this.setActiveTab();
+    this._router.events.pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(takeUntil(this._unsubscriber))
+      .subscribe(() => {
+        this.setActiveTab();
       });
+  }
+
+  private setActiveTab() {
+    const action: AppActionTypes = this._activatedRoute.snapshot.firstChild.data.action;
+    if (!action)
+      return;
+    const tab = this.MenuTabs.find(i => i.Action == action);
+    if (tab) {
+      this.MenuTabs.forEach(i => i.setActive(false));
+      tab.setActive(true);
+    }
   }
 
 }

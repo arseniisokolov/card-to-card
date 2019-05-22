@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TransferFormViewModel } from '../../view-models/transfer-form.view-model';
 import { TransferService } from '../../data/transfer.service';
 import { TosterGlobalService } from 'core-library/modals/data/toster/toster.global.service';
 import { TosterTypes } from 'core-library/modals/data/toster/toster-types.enum';
+import { ICardTransfer } from 'src/app/app-data/card-transfer.interface';
 
 @Component({
   selector: 'create-transfer-form',
@@ -10,6 +11,9 @@ import { TosterTypes } from 'core-library/modals/data/toster/toster-types.enum';
   styleUrls: ['./styles/create-transfer-form.master.scss']
 })
 export class CreateTransferFormComponent implements OnInit {
+
+  @Input()
+  public presetValue: ICardTransfer;
 
   public Model: TransferFormViewModel;
 
@@ -32,7 +36,7 @@ export class CreateTransferFormComponent implements OnInit {
 
   private initialize() {
     this.Model = new TransferFormViewModel();
-    this.Model.initialize();
+    this.Model.initialize(this.presetValue);
   }
 
 }

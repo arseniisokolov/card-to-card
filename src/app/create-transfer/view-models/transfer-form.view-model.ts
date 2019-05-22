@@ -14,17 +14,20 @@ export class TransferFormViewModel extends FormViewModel<ICardTransfer>{
         return this.Form.valid && this.CardFrom.Form.valid && this.CardTo.Form.valid;
     }
 
-    public initialize() {
+    public initialize(data?: ICardTransfer) {
         this.CardFrom = new CardFormViewModel();
         this.CardTo = new CardFormViewModel();
         this.CardFrom.initialize({ title: 'Карта плательщика' });
         this.CardTo.initialize({ title: 'Карта получателя', isReduced: true });
         super.initialize();
+        this.fromModel(data);
     }
 
     public fromModel(data: ICardTransfer) {
+        if (!data)
+            return;
         super.fromModel(data);
-        this.Form.value.Amount = data.amount;
+        this.Form.setValue({ "Amount": data.amount });
         this.CardFrom.fromData(data.cardFrom);
         this.CardTo.fromData(data.cardTo);
     }

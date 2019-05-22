@@ -6,11 +6,15 @@ import { HistoryListComponent } from './components/history-list/history-list.com
 import { HistoryFilterComponent } from './components/history-filter/history-filter.component';
 import { HistoryListItemComponent } from './components/history-list-item/history-list-item.component';
 
+//services
+import { HistoryService } from './data/history.service';
+
 @NgModule({
   declarations: [
     HistoryListComponent,
     HistoryFilterComponent,
-    HistoryListItemComponent],
+    HistoryListItemComponent
+  ],
   exports: [
     HistoryListComponent,
     HistoryFilterComponent,
@@ -24,7 +28,9 @@ export class HistoryModule {
   public static forRoot(): ModuleWithProviders {
     return {
       ngModule: HistoryModule,
-      providers: []
+      providers: [
+        HistoryService
+      ]
     };
   }
 

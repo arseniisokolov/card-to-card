@@ -1,6 +1,6 @@
-<div class="create-transfer">
+<div *ngIf="!Loading" class="create-transfer">
   <div class="create-transfer__title">
     Введите данные для перевода
   </div>
-  <create-transfer-form></create-transfer-form>
+  <create-transfer-form [presetValue]="PresetTransfer"></create-transfer-form>
 </div>

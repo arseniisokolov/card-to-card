@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'history-tab',
   templateUrl: './history-tab.component.html',
   styleUrls: ['./styles/history-tab.component.scss']
 })
-export class HistoryTabComponent implements OnInit {
+export class HistoryTabComponent {
 
-  constructor() { }
+  constructor(
+    private _router: Router
+  ) { }
 
-  ngOnInit() {
+  public repeatTransfer(id: string) {
+    this._router.navigate(['cabinet/create-transfer'], { queryParams: { id } });
   }
 
 }
