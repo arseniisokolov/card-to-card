@@ -1,5 +1,5 @@
 # card-to-card
- Реактивные переводы с карты на карту.
+Простая форма для переводов с карты на карту
 ## Как запустить:
 - вызвать npm i
 - (!) не забыть склонировать сабмодуль <a href="https://github.com/arseniyasokolov/core-library">core-library</a>
