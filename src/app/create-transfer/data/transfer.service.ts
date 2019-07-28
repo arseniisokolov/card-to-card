@@ -6,11 +6,11 @@ import { ICardTransfer } from '../../app-data/card-transfer.interface';
 @Injectable()
 export class TransferService {
 
-    private _localStorage: LocalStorageAdapter<ICardTransfer> = new LocalStorageAdapter('transfers');
+    private _localStorage: LocalStorageAdapter<ICardTransfer> = new LocalStorageAdapter();
 
     public send(transfer: ICardTransfer): Observable<void> {
         return new Observable<void>(subscriber =>
-            this._localStorage.post([transfer])
+            this._localStorage.post('transfers', [transfer])
                 .subscribe(() => subscriber.next())
         );
     }

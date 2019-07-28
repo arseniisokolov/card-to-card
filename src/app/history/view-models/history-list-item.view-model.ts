@@ -1,5 +1,5 @@
 import { ICardTransfer } from 'src/app/app-data/card-transfer.interface';
-import { Helpers } from 'core-library/core/helpers';
+import { Helpers } from 'core-library/core/classes/helpers';
 
 export class HistoryListItemViewModel {
 

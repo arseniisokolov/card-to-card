@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { TosterTypes } from 'core-library/modals/data/toster/toster-types.enum';
-import { TosterGlobalService } from 'core-library/modals/data/toster/toster.global.service';
+import { TosterTypes } from 'core-library/angular/modals/data/toster/toster-types.enum';
+import { TosterGlobalService } from 'core-library/angular/modals/data/toster/toster.global.service';
 import { HistoryService } from '../../data/history.service';
 import { HistoryListViewModel } from '../../view-models/history-list.view-model';
 
