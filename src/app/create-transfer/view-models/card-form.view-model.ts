@@ -1,14 +1,15 @@
 import { FormControl, Validators } from '@angular/forms';
-import { FormViewModel } from 'core-library/core/view-models/form.view-model';
-import { CardModel, ICardModel } from 'core-library/core/models/card.model';
-
+import { FormBaseViewModel } from 'core-library/core/view-models/form.base.view-model';
+import { CardModel } from 'core-library/core/models/card/card.base.model';
+import { ICardData } from 'core-library/core/models/card/card.data';
+import { SenderCardModel } from 'core-library/core/models/card/sender-card.model';
 
 const Constants = {
     /** Максимальный возможный срок действия карты, лет (с текущего года) */
     maxDuration: 21,
 }
 
-export class CardFormViewModel extends FormViewModel<CardModel> {
+export class CardFormViewModel extends FormBaseViewModel<CardModel> {
 
     /** Краткая форма карты */
     public IsReducedMode: boolean;
@@ -18,7 +19,7 @@ export class CardFormViewModel extends FormViewModel<CardModel> {
     public initialize(config: ICardFormConfig) {
         this.IsReducedMode = config.isReduced;
         this.Title = config.title;
-        super.initialize();
+        return super.initialize();
     }
 
 
@@ -31,7 +32,7 @@ export class CardFormViewModel extends FormViewModel<CardModel> {
         this.Form.controls.NumberGroup2.setValue(expNumber[1]);
         this.Form.controls.NumberGroup3.setValue(expNumber[2]);
         this.Form.controls.NumberGroup4.setValue(expNumber[3]);
-        if (!this.IsReducedMode) {
+        if (!this.IsReducedMode && data instanceof SenderCardModel) {
             const expDate = data.getExpired();
             this.Form.controls.ExpireMonth.setValue(expDate.month);
             this.Form.controls.ExpireYear.setValue(expDate.year);
@@ -40,7 +41,7 @@ export class CardFormViewModel extends FormViewModel<CardModel> {
     }
 
     public toModel(): CardModel {
-        const res: CardModel = new CardModel();
+        const res: SenderCardModel = new SenderCardModel();
         res.Number = CardModel.implodeNumber([this.Form.value.NumberGroup1, this.Form.value.NumberGroup2, this.Form.value.NumberGroup3, this.Form.value.NumberGroup4]);
         if (!this.IsReducedMode) {
             res.OwnerEmbossName = this.Form.value.OwnerEmbossName.toUpperCase();
@@ -49,13 +50,13 @@ export class CardFormViewModel extends FormViewModel<CardModel> {
         return res;
     }
 
-    public fromData(data: ICardModel) {
+    public fromData(data: ICardData) {
         if (!data)
             return;
-        this.fromModel(new CardModel(data));
+        this.fromModel(new SenderCardModel(data));
     }
 
-    public toData(): ICardModel {
+    public toData(): ICardData {
         return this.toModel().toData();
     }
 

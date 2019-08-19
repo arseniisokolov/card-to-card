@@ -7,10 +7,10 @@ import { ICardTransfer } from '../../app-data/card-transfer.interface';
 @Injectable()
 export class HistoryService {
 
-    private _localStorage: LocalStorageAdapter<ICardTransfer> = new LocalStorageAdapter('transfers');
+    private _localStorage: LocalStorageAdapter<ICardTransfer> = new LocalStorageAdapter();
 
     public getTransfers(): Observable<ICardTransfer[]> {
-        return this._localStorage.get();
+        return this._localStorage.get('transfers');
     }
 
     public getTransferById(id: string): Observable<ICardTransfer> {
@@ -21,7 +21,7 @@ export class HistoryService {
     }
 
     public deleteTransfer(id: string): Observable<void> {
-        return this._localStorage.delete(id);
+        return this._localStorage.delete('transfers', id);
     }
 
 }
